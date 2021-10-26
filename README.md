@@ -1,6 +1,12 @@
 # bash-cluster-smi
 A bash script that displays the usage of each GPU cluster.
 
+## Installation
+Get the submodule
+```
+git submodule update
+```
+
 
 ## Usage
 Just RUN `bash cluster-smi.sh`

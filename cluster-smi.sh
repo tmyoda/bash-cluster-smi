@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Set the hostname here
+# Set the hostname to gpu_hosts.txt, this pwd
 
 read_parent_dir() {
     local cwd="$(pwd)"

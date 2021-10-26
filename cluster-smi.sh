@@ -1,7 +1,22 @@
 #!/bin/bash
 
 # Set the hostname here
-GPU_NODES=("node7" "node8")
+
+read_parent_dir() {
+    local cwd="$(pwd)"
+    local path="$1"
+
+    while [ -n "$path" ]; do
+        if [ "${path%/*}" != "$path" ]; then
+            cd "${path%/*}"
+        fi
+        local name="${path##*/}"
+        path="$(readlink "$name" || true)"
+    done
+
+    pwd
+    cd "$cwd"
+}
 
 get_node() {
   node=$1
@@ -52,9 +67,11 @@ get_node() {
   echo -e "NODE\tGPU\tUSER\tGPU Memory Usage\tVolatile GPU-Util\n${RESULT}"
 }
 
+SCRIPT_HOME="$(read_parent_dir $0)"
+GPU_NODES=$(cat ${SCRIPT_HOME}/gpu_hosts.txt)
 
 for node in ${GPU_NODES[@]}; do
-  get_node $node | bash prettytable.sh/prettytable.sh 5 &
+  get_node $node | bash ${SCRIPT_HOME}/prettytable.sh/prettytable.sh 5 &
   # TODO: Needs improvement
   sleep 0.1
 done

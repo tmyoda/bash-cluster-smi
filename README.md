@@ -2,9 +2,17 @@
 A bash script that displays the usage of each GPU cluster.
 
 ## Installation
-Get the submodule
+- Get the submodule
 ```
 git submodule update -i
+```
+
+- Make `gpu_hosts.txt`
+Enter the hostname delimited by spaces.
+
+```
+$ cat gpu_hosts.txt
+node7 node8
 ```
 
 

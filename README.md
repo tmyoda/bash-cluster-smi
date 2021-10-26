@@ -4,7 +4,7 @@ A bash script that displays the usage of each GPU cluster.
 ## Installation
 Get the submodule
 ```
-git submodule update
+git submodule update -i
 ```
 
 

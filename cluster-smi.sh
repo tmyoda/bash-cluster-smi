@@ -20,8 +20,8 @@ read_parent_dir() {
 
 get_node() {
   node=$1
-  NVIDIA_SMI=$(ssh ${node} "nvidia-smi" &)
-  PS_AUX=$(ssh ${node} "ps -aux" &)
+  NVIDIA_SMI=$(ssh -oStrictHostKeyChecking=no ${node} "nvidia-smi" &)
+  PS_AUX=$(ssh -oStrictHostKeyChecking=no ${node} "ps -aux" &)
   
   PIDS=$(echo "${NVIDIA_SMI}" | awk 'NR==31, NR==-1 {print $5}')
 

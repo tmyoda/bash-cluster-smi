@@ -8,6 +8,7 @@ git submodule update -i
 ```
 
 - Make `gpu_hosts.txt`
+
 Enter the hostname delimited by spaces.
 
 ```

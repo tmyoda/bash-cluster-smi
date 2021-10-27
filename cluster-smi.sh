@@ -73,7 +73,10 @@ GPU_NODES=$(cat ${SCRIPT_HOME}/gpu_hosts.txt)
 
 for node in ${GPU_NODES[@]}; do
   get_node $node | bash ${SCRIPT_HOME}/prettytable.sh/prettytable.sh 5 &
-  # TODO: Needs improvement
+  # TODO: Need improvement
   sleep 0.1
 done
 wait
+
+exit
+

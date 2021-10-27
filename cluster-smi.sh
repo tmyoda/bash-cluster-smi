@@ -21,7 +21,7 @@ read_parent_dir() {
 get_node() {
   node=$1
   NVIDIA_SMI=$(ssh -oStrictHostKeyChecking=no ${node} "nvidia-smi" &)
-  PS_AUX=$(ssh -oStrictHostKeyChecking=no ${node} "ps -aux" &)
+  PS_AUX=$(ssh -oStrictHostKeyChecking=no ${node} "ps -au" &)
   
   PIDS=$(echo "${NVIDIA_SMI}" | awk 'NR==31, NR==-1 {print $5}')
 
@@ -38,20 +38,20 @@ get_node() {
     done
 
     # Get the MAX memory
-    RESULT=$(echo "${RESULT}" | awk '{printf "%s / %s\n",$0 ,"_"}')
+    RESULT=$(echo "${RESULT}" | awk '{printf "%s / %s\n",$0 ,"_TOKEN_"}')
     # One by one
     line=1
     for max_mem in ${MAX_MEM[@]}; do
-      RESULT=$(echo "${RESULT}" | sed "${line}s/_/${max_mem}/")
+      RESULT=$(echo "${RESULT}" | sed "${line}s/_TOKEN_/${max_mem}/")
       let line++
     done
 
     # Get the volatile gpu util
-    RESULT=$(echo "${RESULT}" | awk '{printf "%s\t%s\n",$0 ,"_"}')
+    RESULT=$(echo "${RESULT}" | awk '{printf "%s\t%s\n",$0 ,"_TOKEN_"}')
     # One by one
     line=1
     for volatile in ${VOLATILE[@]}; do
-      RESULT=$(echo "${RESULT}" | sed "${line}s/_/${volatile}/")
+      RESULT=$(echo "${RESULT}" | sed "${line}s/_TOKEN_/${volatile}/")
       let line++
     done
 
@@ -60,8 +60,9 @@ get_node() {
   fi
 
   # Add the hostname
-  RESULT=$(echo "${RESULT}" | awk '{printf "%s\t%s\n"," " ,$0}')
-  RESULT=$(echo "${RESULT}" | sed "1s/ /${node}/")
+  RESULT=$(echo "${RESULT}" | awk '{printf "%s\t%s\n","_TOKEN_" ,$0}')
+  RESULT=$(echo "${RESULT}" | sed "1s/_TOKEN_/${node}/")
+  RESULT=$(echo "${RESULT}" | sed -e "s/_TOKEN_/ /g")
 
   # Output
   echo -e "NODE\tGPU\tUSER\tGPU Memory Usage\tVolatile GPU-Util\n${RESULT}"

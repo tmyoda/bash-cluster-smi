@@ -16,6 +16,20 @@ $ cat gpu_hosts.txt
 node7 node8
 ```
 
+### Use this command from the terminal (Optional)
+
+Symbolic link to the system's search path, (e.g. `/usr/local/bin`)
+
+#### Example of adding to `/usr/local/bin`
+```
+$ ln -s path-to/bash-cluster-smi/gpu_cluster_smi.sh /usr/local/bin/cluster-smi
+```
+You can use `cluster-smi` from everywhere
+```
+$ cluster-smi
+```
+
+
 
 ## Usage
 Just RUN `bash cluster-smi.sh`

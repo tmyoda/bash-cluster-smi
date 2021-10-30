@@ -16,6 +16,8 @@ $ cat gpu_hosts.txt
 node7 node8
 ```
 
+Because of parallelization in background jobs (`&`), the order displayed depends on the mood of the GPU.
+
 ### Use this command from the terminal (Optional)
 
 Symbolic link to the system's search path, (e.g. `/usr/local/bin`)
